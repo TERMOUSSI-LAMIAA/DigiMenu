@@ -62,4 +62,13 @@ class User extends Authenticatable  implements MustVerifyEmail
        $username=self::GenerateUsername($newusername);
       }
     }
+
+    public function restaurant()
+    {
+        return $this->hasOne(Restaurant::class);
+    }
+
+    public function abonnement() {
+        return $this->belongsTo(Abonnement::class);
+    }
 }
