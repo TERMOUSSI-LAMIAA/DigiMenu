@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\providerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});Route::middleware(['web'])->group(function () {
+    Route::get('/auth/{provider}/redirect', [providerController::class, 'redirect']);
+    Route::get('/auth/{provider}/callback', [providerController::class, 'callback']);
 });
 
 Route::get('/dashboard', function () {
