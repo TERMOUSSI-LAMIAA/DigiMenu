@@ -44,4 +44,13 @@ class User extends Authenticatable  implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function restaurant()
+    {
+        return $this->hasOne(Restaurant::class);
+    }
+
+    public function abonnement() {
+        return $this->belongsTo(Abonnement::class);
+    }
 }
