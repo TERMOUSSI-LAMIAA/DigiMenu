@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Abonnement;
+use App\Models\Restaurant;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -13,7 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable  implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable,HasRoles,SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -24,9 +27,11 @@ class User extends Authenticatable  implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'username',
         'provider',
         'provider_id',
-        'password',
+        'provider_token',
+       
     ];
 
     /**
@@ -50,19 +55,21 @@ class User extends Authenticatable  implements MustVerifyEmail
     ];
 
 
-    public static function  GenerateUsername($username){
-      if($username == null ){
-
-           $username=Str::lower(Str::random(8));
-      }
-
-
-      if(User::where('name', $username)->exists()){
-       $newusername= $username.Str::lower(Str::random(8));
-       $username=self::GenerateUsername($newusername);
-      }
+    public static function GenerateUsername($username)
+    {
+        if (empty($username)) {
+            $username = Str::lower(Str::random(8));
+        }
+    
+        if (User::where('username', $username)->exists()) {
+            $newUsername = $username . Str::lower(Str::random(3));
+            return self::GenerateUsername($newUsername);
+        }
+    
+        return $username;
     }
-
+    
+   
     public function restaurant()
     {
         return $this->hasOne(Restaurant::class);
