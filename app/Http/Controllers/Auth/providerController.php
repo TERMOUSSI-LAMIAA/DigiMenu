@@ -15,12 +15,12 @@ class providerController extends Controller
 {
     public function redirect($provider){
         return Socialite::driver($provider)->redirect();
-
+        // dd($provider);
     }
     public function callback($provider){
 
         $socialuser = Socialite::driver($provider)->user();
-        //  dd($socialuser);
+       
 
         $user = User::updateOrCreate([
             'provider_id' => $socialuser->id,
