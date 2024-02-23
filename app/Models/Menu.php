@@ -14,6 +14,6 @@ class Menu extends Model
     }
 
     public function articles() {
-        return $this->hasMany(Restaurant::class);
+        return $this->hasMany(Article::class);
     }
 }
