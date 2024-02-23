@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\providerController;
@@ -28,6 +29,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware(['auth', 'verified','role:Admin'])->group(function () {
+   
+    Route::get('/Users', [UserController::class, 'GetUsers'])->name('Users.GetUsers');
+    Route::get('/operators', [UserController::class, 'GetOperators'])->name('operators.GetOperators');
+    Route::post('/Users/{item}', [UserController::class, 'asignOperator'])->name('Users.asignOperator');
+    Route::post('/Users/{item}', [UserController::class, 'deleteUser'])->name('Users.deleteUser');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
