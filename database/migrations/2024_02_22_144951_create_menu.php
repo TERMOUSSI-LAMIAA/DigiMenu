@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('qrcode');
-            $table->string('img');
             $table->foreignId('restaurant_id')->nullable()->constrained('restaurant');
             $table->timestamps();
             $table->softDeletes();
