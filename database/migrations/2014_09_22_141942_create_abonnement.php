@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('abonnement', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->date('start_date');
             $table->integer('nbr_article');
-            $table->string('type_media');
-            $table->integer('nbr_scan');
+            $table->enum('type_media', ['image', 'video']);            $table->integer('nbr_scan');
             $table->timestamps();
             $table->softDeletes();
         });

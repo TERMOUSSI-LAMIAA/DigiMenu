@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use App\Providers\RouteServiceProvider;
+use App\Http\Requests\Auth\LoginRequest;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -26,12 +27,21 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
+    
         $request->session()->regenerate();
-       
-
-        return redirect()->intended(RouteServiceProvider::HOME);
+        
+        $user = User::where('id', Auth::id())->first();
+    
+        if ($user->hasRole('owner')) {
+            return redirect()->intended(RouteServiceProvider::OWNER);
+        } elseif ($user->hasRole('Admin')) {
+            return redirect()->intended(RouteServiceProvider::HOME);
+        } else {
+            // Redirect to a default route or handle the case where the user has no expected role
+            return redirect()->intended(RouteServiceProvider::OPERATOR);
+        }
     }
+    
 
     /**
      * Destroy an authenticated session.

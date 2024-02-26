@@ -42,13 +42,16 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'abonnement_id'=>1,
+            'start_date_abonnement'=>now(),
+            'end_date_abonnement'=>now()->addMinutes(5),
         ]);
         $user->assignRole('owner');
         event(new Registered($user));
         
-
+      
         Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        
+        return redirect(RouteServiceProvider::OWNER);
     }
 }
