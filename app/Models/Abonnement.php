@@ -10,6 +10,16 @@ class Abonnement extends Model
 {
     use HasFactory;
 
+
+    protected $fillable=[
+        'type',
+'start_date',
+'nbr_article',
+'type_media',
+'nbr_scan',
+    ];
+    protected $table='abonnement';
+
     protected static function boot()
     {
         parent::boot();

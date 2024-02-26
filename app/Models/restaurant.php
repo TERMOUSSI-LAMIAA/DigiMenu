@@ -13,21 +13,21 @@ class restaurant extends Model
 
     protected $fillable=[
         'name',
-       'address',
-      'opening_hr',
+'address',
+'opening_hr',
     ];
 
     protected static function boot()
     {
         parent::boot();
 
-        static::deleting(function ($restaurant) {
-            $restaurant->menus->each->delete();
+        static::deleting(function ($Restaurant) {
+            $Restaurant->menus->each->delete();
         });
     }
 
     public function user() {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function menus() {

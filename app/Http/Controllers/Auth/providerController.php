@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
 use Laravel\Socialite\Facades\Socialite;
@@ -17,7 +18,8 @@ class providerController extends Controller
         return Socialite::driver($provider)->redirect();
 
     }
-    public function callback($provider){
+    public function callback($provider)
+    {
 
         $socialuser = Socialite::driver($provider)->user();
         //  dd($socialuser);
@@ -34,20 +36,34 @@ class providerController extends Controller
                 'email' => $socialuser->email,
                 'provider_token' => $socialuser->token,
                 'email_verified_at' => null,
+                'abonnement_id'=>1,
+                'start_date_abonnement'=>now(),
+            'end_date_abonnement'=>now()->addDay(),
             ]);
             
             $user->assignRole('owner');
             event(new Registered($user));
             Auth::login($user);
+
+          if($user->hasRole('owner')){
+            return redirect()->intended(RouteServiceProvider::OWNER);
+        }elseif($user->hasRole('Admin')){
             return redirect()->intended(RouteServiceProvider::HOME);
+
+        }
 
             
         } else {
             Auth::login($user);
 
             
-            return redirect()->intended(RouteServiceProvider::HOME);
-            
+            if($user->hasRole('owner')){
+                return redirect()->intended(RouteServiceProvider::OWNER);
+            }elseif($user->hasRole('Admin')){
+                return redirect()->intended(RouteServiceProvider::HOME);
+    
+            }
+                
         }
         
     }

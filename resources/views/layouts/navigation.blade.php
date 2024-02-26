@@ -13,17 +13,40 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                   
+                    @role('Admin')
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @role('Admin')
 
                     <x-nav-link :href="route('operators.GetOperators')" :active="request()->routeIs('operators.GetOperators')">
                         {{ __('Gestion operateurs') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('Users.GetUsers')" :active="request()->routeIs('Users.GetUsers')">
-                        {{ __('gestion users') }}
+                    <x-nav-link :href="route('abonnements.index')" :active="request()->routeIs('abonnements.index')">
+                        {{ __('Gestion Abonnement') }}
                     </x-nav-link>
+                    
+                    
+                    @endrole
+
+                    @role('owner')
+                    <x-nav-link :href="route('dashboard_oner')" :active="request()->routeIs('dashboard_oner')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('plan.plan_owner')" :active="request()->routeIs('plan.plan_owner')">
+                        {{ __(" plan d'abonnement") }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('operators.GetOpera')" :active="request()->routeIs('operators.GetOpera')">
+                        {{ __('Gestion operateurs') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('menus.index')" :active="request()->routeIs('menus.index')">
+                        {{ __('Gestion menus') }}
+                    </x-nav-link>
+
+                    @endrole
+                    @role('operator')
+
                     @endrole
                 </div>
             </div>
