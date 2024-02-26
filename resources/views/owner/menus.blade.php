@@ -9,7 +9,7 @@
         
         <div class="relative overflow-x-auto my-6">
             @role('owner')
-                        <a href="{{ route('menu.create') }}" class="btn bg-blue-500 text-white rounded p-2 mx-6 my-6">add menu</a>
+                        <a href="{{ route('menus.create') }}" class="btn bg-blue-500 text-white rounded p-2 mx-6 my-6">add menu</a>
 
             @endrole
             @role('operator')
