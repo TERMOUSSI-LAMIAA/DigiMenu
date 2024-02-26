@@ -4,7 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Abonnement;
-use App\Models\Restaurant;
+use App\Models\restaurant;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
@@ -28,6 +28,11 @@ class User extends Authenticatable  implements MustVerifyEmail
         'email',
         'password',
         'username',
+        'restaurant_id',
+        'email_verified_at',
+        'abonnement_id',
+        'start_date_abonnement',
+        'end_date_abonnement',
         'provider',
         'provider_id',
         'provider_token',
@@ -72,7 +77,7 @@ class User extends Authenticatable  implements MustVerifyEmail
    
     public function restaurant()
     {
-        return $this->hasOne(Restaurant::class);
+        return $this->belongsTo(restaurant::class);
     }
 
     public function abonnement() {

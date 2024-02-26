@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('qrcode');
-            $table->foreignId('restaurant_id')->nullable()->constrained('restaurant');
+            $table->foreignId('restaurant_id')->nullable()->constrained('restaurants');
             $table->timestamps();
             $table->softDeletes();
         });

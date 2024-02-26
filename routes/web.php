@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\abonnementController;
 use App\Http\Controllers\Auth\providerController;
 
 /*
@@ -25,16 +27,36 @@ Route::get('/', function () {
     Route::get('/auth/{provider}/callback', [providerController::class, 'callback']);
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware(['auth', 'verified','role:Admin'])->group(function () {
+Route::middleware(['auth', 'verified','role:operator'])->group(function () {
+    Route::get('/dashboard_oper', function () {
+        return view('dashboard_oper');
+    })->name('dashboard_oper');
+    
    
-    Route::get('/Users', [UserController::class, 'GetUsers'])->name('Users.GetUsers');
-    Route::get('/operators', [UserController::class, 'GetOperators'])->name('operators.GetOperators');
-    Route::post('/Users/{item}', [UserController::class, 'asignOperator'])->name('Users.asignOperator');
-    Route::post('/Users/{item}', [UserController::class, 'deleteUser'])->name('Users.deleteUser');
+});
+
+Route::middleware(['auth', 'verified','role:owner'])->group(function () {
+    Route::get('/dashboard_oner',[UserController::class, 'OWNER'] )->name('dashboard_oner');
+    Route::get('/resturant',[UserController::class, 'AddResturant'] )->name('resturant.create');
+    Route::post('/resturant.store',[UserController::class, 'storeResturant'] )->name('resturant.store');
+    Route::get('/plan',[abonnementController::class,'plan_owner'])->name('plan.plan_owner');
+    Route::post('/plan/{abo}',[abonnementController::class,'shows_plan'])->name('plan.shows_plan');
+    Route::get('/operator/GetOperator', [UserController::class, 'GetOwnerOperators'])->name('operators.GetOpera');
+    Route::get('/operator/addOperator', [UserController::class, 'Addoperator_own'])->name('Addoperator_own');
+    Route::post('/operator/storeOperator', [UserController::class, 'storeoperator'])->name('storeOperator');
+    Route::resource('/menus',MenuController::class);
+
+});
+Route::middleware(['auth', 'verified','role:Admin'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    
+   Route::resource('/abonnements',abonnementController::class);
+    Route::get('/operators/GetOperators', [UserController::class, 'GetOperators'])->name('operators.GetOperators');
+    Route::get('/operators/Addoperator', [UserController::class, 'Addoperator'])->name('operators.Addoperator');
+    Route::post('/operators/{item}', [UserController::class, 'deleteUser'])->name('Users.deleteUser');
+    Route::post('/Users.store', [UserController::class, 'storeoperator'])->name('Users.store');
 });
 
 Route::middleware('auth')->group(function () {
