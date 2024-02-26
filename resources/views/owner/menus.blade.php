@@ -8,12 +8,12 @@
     <x-slot name="slot">
         
         <div class="relative overflow-x-auto my-6">
-            @role('Admin')
-                        <a href="{{ route('operators.Addoperator') }}" class="btn bg-blue-500 text-white rounded p-2 mx-6 my-6">add operator</a>
+            @role('owner')
+                        <a href="{{ route('menu.create') }}" class="btn bg-blue-500 text-white rounded p-2 mx-6 my-6">add menu</a>
 
             @endrole
-            @role('owner')
-            <a href="{{ route('Addoperator_own') }}" class="btn bg-blue-500 text-white rounded p-2 mx-6 my-6">add operator</a>
+            @role('operator')
+            <a href="{{ route('Addoperator_own') }}" class="btn bg-blue-500 text-white rounded p-2 mx-6 my-6">add menu</a>
 
              @endrole
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -22,33 +22,29 @@
                    
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            user name
+                            title
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            email
+                            qrcode
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                           email verifide
-                        </th>
+                       
+                        
                        
                         <th scope="col" class="px-6 py-3 text-center">
                             actions
                           </th>
                     </tr>
                 </thead>
-                {{-- <tbody>
-                    @forelse ($operators as $item)
+            <tbody>
+                    @forelse ($menus as $item)
                         
                    
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                           {{ $item->name }}
+                           {{ $item->title }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $item->email }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ ($item->email_verified_at)?'yes':'no' }}
+                            {{ $item->qrcode }}
                         </td>
                        
                         <td class="px-6 py-4 flex justify-around">
@@ -61,10 +57,10 @@
                         </td>
                     
                     @empty
-                    <td colspan="12"><h1 class="text-center">no operators</h1></td> 
+                    <td colspan="12"><h1 class="text-center">no menus yet</h1></td> 
                 </tr>
                     @endforelse
-                </tbody> --}}
+                </tbody> 
             </table>
         </div>
     </x-slot>
