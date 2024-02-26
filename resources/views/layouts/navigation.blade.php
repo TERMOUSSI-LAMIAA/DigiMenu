@@ -25,7 +25,9 @@
                     <x-nav-link :href="route('abonnements.index')" :active="request()->routeIs('abonnements.index')">
                         {{ __('Gestion Abonnement') }}
                     </x-nav-link>
-                    
+                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                        {{ __('Gestion categories') }}
+                    </x-nav-link>
                     
                     @endrole
 
@@ -43,7 +45,9 @@
                     <x-nav-link :href="route('menus.index')" :active="request()->routeIs('menus.index')">
                         {{ __('Gestion menus') }}
                     </x-nav-link>
-
+                    <x-nav-link :href="route('Articles.index')" :active="request()->routeIs('Articles.index')">
+                        {{ __('Gestion articles') }}
+                    </x-nav-link>
                     @endrole
                     @role('operator')
                     <x-nav-link :href="route('menus.index')" :active="request()->routeIs('menus.index')">

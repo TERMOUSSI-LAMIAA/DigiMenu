@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\UserController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
@@ -45,6 +47,7 @@ Route::middleware(['auth', 'verified','role:owner'])->group(function () {
     Route::get('/operator/addOperator', [UserController::class, 'Addoperator_own'])->name('Addoperator_own');
     Route::post('/operator/storeOperator', [UserController::class, 'storeoperator'])->name('storeOperator');
     Route::resource('/menus',MenuController::class);
+    Route::resource('/Articles',ArticleController::class); 
 
 });
 Route::middleware(['auth', 'verified','role:Admin'])->group(function () {
@@ -57,6 +60,8 @@ Route::middleware(['auth', 'verified','role:Admin'])->group(function () {
     Route::get('/operators/Addoperator', [UserController::class, 'Addoperator'])->name('operators.Addoperator');
     Route::post('/operators/{item}', [UserController::class, 'deleteUser'])->name('Users.deleteUser');
     Route::post('/Users.store', [UserController::class, 'storeoperator'])->name('Users.store');
+    Route::resource('/categories',CategorieController::class); 
+
 });
 
 Route::middleware('auth')->group(function () {

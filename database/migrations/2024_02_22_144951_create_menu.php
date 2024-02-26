@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('menu', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('qrcode');
             $table->foreignId('restaurant_id')->nullable()->constrained('restaurants');
             $table->timestamps();
             $table->softDeletes();

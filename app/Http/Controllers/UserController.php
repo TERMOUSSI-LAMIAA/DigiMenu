@@ -73,15 +73,15 @@ class UserController extends Controller
             'opening_hr' =>$request->opening_hr, 
         ]);
         $user = User::where('id', Auth::id())
-    ->whereHas('roles', function ($query) {
-        $query->where('name', 'owner');
-    })
-    ->first();
-    $user->restaurant_id=$resturant->id;
-    $user->update();
-
-        return redirect(route('dashboard_oner'));
+        ->whereHas('roles', function ($query) {
+            $query->where('name', 'owner');
+        })
+        ->first();
+        $user->restaurant_id=$resturant->id;
+        $user->update();
         
+
+        return redirect(route('dashboard_oner')); 
     }
 
     

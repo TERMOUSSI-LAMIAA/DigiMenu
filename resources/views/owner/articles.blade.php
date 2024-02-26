@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-center text-xl text-gray-800 leading-tight">
-            {{ __('Gestion menus') }}
+            {{ __('Gestion operators') }}
         </h2>
     </x-slot>
 
@@ -9,13 +9,8 @@
         
         <div class="relative overflow-x-auto my-6">
             @role('owner')
-                        <a href="{{ route('menus.create') }}" class="btn bg-blue-500 text-white rounded p-2 mx-6 my-6">add menu</a>
-
+                <a href="{{ route('Articles.create') }}" class="btn bg-blue-500 text-white rounded p-2 mx-6 my-6">add article</a>
             @endrole
-            @role('operator')
-            <a href="{{ route('Addoperator_own') }}" class="btn bg-blue-500 text-white rounded p-2 mx-6 my-6">add menu</a>
-
-             @endrole
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                    
@@ -25,18 +20,24 @@
                             title
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            qrcode
+                            description
                         </th>
-                       
-                        
-                       
+                       <th scope="col" class="px-6 py-3">
+                            price
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            image
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            video
+                        </th>
                         <th scope="col" class="px-6 py-3 text-center">
                             actions
-                          </th>
+                        </th>
                     </tr>
                 </thead>
             <tbody>
-                    @forelse ($menus as $item)
+                    @forelse ($articles as $item)
                         
                    
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -44,7 +45,7 @@
                            {{ $item->title }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $item->qrcode }}
+                          
                         </td>
                        
                         <td class="px-6 py-4 flex justify-around">
@@ -52,12 +53,12 @@
                          <div class=""> <form action="" method="POST">
                             @csrf
                             @method('delete')
-                            <button class="btn bg-red-500 text-white rounded p-1">delet</button>
+                            <button class="btn bg-red-500 text-white rounded p-1">delete</button>
                           </form></div>
                         </td>
                     
                     @empty
-                    <td colspan="12"><h1 class="text-center">no menus yet</h1></td> 
+                    <td colspan="12"><h1 class="text-center">no articles yet</h1></td> 
                 </tr>
                     @endforelse
                 </tbody> 
