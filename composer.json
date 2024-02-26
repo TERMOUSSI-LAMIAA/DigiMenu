@@ -12,7 +12,11 @@
         "laravel/sanctum": "^3.3",
         "laravel/socialite": "^5.12",
         "laravel/tinker": "^2.8",
+<<<<<<< HEAD
         "spatie/laravel-medialibrary": "^11.0.0",
+=======
+        "simplesoftwareio/simple-qrcode": "~4",
+>>>>>>> 5c22c5287b38f75b750a335aeb2d3c08c5b152d0
         "spatie/laravel-permission": "^6.3"
     },
     "require-dev": {

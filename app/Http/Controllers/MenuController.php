@@ -24,7 +24,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        //
+        return view('owner.add_menu');
     }
 
     /**
@@ -32,7 +32,20 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            $request->validate([
+            'title' => 'required|string|max:255',
+        ]);
+
+        $user = Auth::user();
+
+        if ($user->restaurant_id) {
+     
+            $menu = Menu::create([
+                'title' => $request->input('title'),
+                'restaurant_id' => $user->restaurant_id,
+            ]);   
+        }
+        return redirect()->route('menus.index')->with('success', 'Menu  added successfully');  
     }
 
     /**

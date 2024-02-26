@@ -10,6 +10,9 @@ class Menu extends Model
 {
     use HasFactory;
     protected $table='menu';
+    //*added
+    protected $fillable = ['title', 'restaurant_id'];
+    //*
     protected static function boot()
     {
         parent::boot();
