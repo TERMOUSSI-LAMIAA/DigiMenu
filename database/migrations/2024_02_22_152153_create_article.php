@@ -16,8 +16,6 @@ return new class extends Migration
             $table->string("title");
             $table->string("description");
             $table->unsignedFloat('price');
-            $table->string("img");
-            $table->string("media_file")->nullable();
             $table->foreignId('menu_id')->nullable()->constrained('menu');
             $table->foreignId('categorie_id')->nullable()->constrained('categorie');
             $table->timestamps();

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menu;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Menu;
+use App\Models\Article;
 
-class MenuController extends Controller
+
+
+class ArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +18,10 @@ class MenuController extends Controller
     public function index()
     {
         $user=User::where('id',Auth::id())->first();
-        $menus=Menu::where('restaurant_id', $user->restaurant_id)->get();
-        return view('owner.menus',compact('menus'));
+        $menus = Menu::where('restaurant_id', $user->restaurant_id)->pluck('id');
+
+        $articles = Article::whereIn('menu_id', $menus)->get();
+        return view('owner.articles',compact('articles'));
     }
 
     /**
@@ -24,7 +29,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('owner.add_menu');
+        return view("owner.add_article");
     }
 
     /**
@@ -32,20 +37,23 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-            $request->validate([
+       $request->validate([
             'title' => 'required|string|max:255',
+            'description'=>'required|string',
+            'price' => 'required|numeric',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $user = Auth::user();
-
-        if ($user->restaurant_id) {
-     
-            $menu = Menu::create([
+        $menu = Article::create([
                 'title' => $request->input('title'),
-                'restaurant_id' => $user->restaurant_id,
-            ]);   
-        }
-        return redirect()->route('menus.index')->with('success', 'Menu  added successfully');  
+                'description' => $request->input('description'),
+                'price' => $request->input('price'),
+                'img' => $request->file('image')->store('imgs', 'public'),
+                'menu_id' =>
+                'categorie_id'=>
+            ]);
+      
+        return redirect()->route('Articles.index')->with('success', 'article added successfully');  
     }
 
     /**
