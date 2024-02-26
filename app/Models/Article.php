@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Article extends Model
 {
     use HasFactory;
+    protected $table='article';
+    protected $fillable = ['title', 'description', 'price', 'img'];
 
     public function menu() {
         return $this->belongsTo(Menu::class);

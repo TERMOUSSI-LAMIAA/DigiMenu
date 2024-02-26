@@ -2,29 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menu;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Categorie;
 
-class MenuController extends Controller
+class CategorieController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user=User::where('id',Auth::id())->first();
-        $menus=Menu::where('restaurant_id', $user->restaurant_id)->get();
-        return view('owner.menus',compact('menus'));
-    }
+        $catgs=Categorie::all();
+        return view('Users.categories',compact('catgs'));   
+     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('owner.add_menu');
+         return view('Users.add_catg');
     }
 
     /**
@@ -32,20 +29,15 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-            $request->validate([
-            'title' => 'required|string|max:255',
+        $request->validate([
+            "title"=>"required|string|max:255",
+            "description"=>"required|string"
         ]);
-
-        $user = Auth::user();
-
-        if ($user->restaurant_id) {
-     
-            $menu = Menu::create([
-                'title' => $request->input('title'),
-                'restaurant_id' => $user->restaurant_id,
-            ]);   
-        }
-        return redirect()->route('menus.index')->with('success', 'Menu  added successfully');  
+        Categorie::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description')
+        ]);
+        return redirect()->route('categories.index')->with('success', 'categorie added successfully');  
     }
 
     /**
