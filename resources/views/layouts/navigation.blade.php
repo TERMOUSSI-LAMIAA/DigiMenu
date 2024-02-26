@@ -46,7 +46,9 @@
 
                     @endrole
                     @role('operator')
-
+                    <x-nav-link :href="route('menus.index')" :active="request()->routeIs('menus.index')">
+                        {{ __('Gestion menus') }}
+                    </x-nav-link>
                     @endrole
                 </div>
             </div>
