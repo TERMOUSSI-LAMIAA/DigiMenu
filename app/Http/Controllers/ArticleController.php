@@ -49,8 +49,8 @@ class ArticleController extends Controller
                 'description' => $request->input('description'),
                 'price' => $request->input('price'),
                 'img' => $request->file('image')->store('imgs', 'public'),
-                'menu_id' =>
-                'categorie_id'=>
+             
+                
             ]);
       
         return redirect()->route('Articles.index')->with('success', 'article added successfully');  

@@ -58,6 +58,39 @@
                             @method('delete')
                             <button class="btn bg-red-500 text-white rounded p-1">delet</button>
                           </form></div>
+                          @role('Admin')
+                         
+                     
+                 
+                    
+                      <div class=""> <form action="{{ route('Users.asignowner',$item) }}" method="POST">
+                        @csrf
+
+                        <button class="btn bg-blue-400 text-white rounded p-1">asign owner</button>
+                      </form></div>
+         
+                        @endrole  
+
+                          @role('owner')
+                          @if($item->hasPermissionTo('add'))
+                          <h1>can add</h1>
+                          @else
+                          <div class=""> <form action="{{ route('operator.permition',$item) }}" method="POST">
+                            @csrf
+
+                            <button class="btn bg-red-500 text-white rounded p-1">can add</button>
+                          </form></div>
+                      @endif
+                      @if($item->hasPermissionTo('delete'))
+                      <h1>can delete</h1>
+                      @else
+                      <div class=""> <form action="{{ route('operator.permition_delete',$item) }}" method="POST">
+                        @csrf
+
+                        <button class="btn bg-red-300 text-white rounded p-1">can delete</button>
+                      </form></div>
+                  @endif
+                        @endrole  
                         </td>
                     
                     @empty
