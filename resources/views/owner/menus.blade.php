@@ -13,9 +13,9 @@
 
             @endrole
             @role('operator')
-            <a href="{{ route('Addoperator_own') }}" class="btn bg-blue-500 text-white rounded p-2 mx-6 my-6">add menu</a>
+            <a href="{{ route('menu.create') }}" class="btn bg-blue-500 text-white rounded p-2 mx-6 my-6">add menu</a>
 
-             @endrole
+            @endrole
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                    
@@ -44,16 +44,23 @@
                            {{ $item->title }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $item->qrcode }}
-                        </td>
+                        {{ QrCode::size(100)->generate('http://localhost/Articles/'.$item->id) }}
+
+                        {{-- @php
+                        $qrCode = QrCode::size(100)->generate('test');
+                        @endphp
+                        <img src="data:image/png;base64,{{ base64_encode($qrCode) }}" alt="QR Code" class="w-20 h-20"> --}}
+                       </td>
                        
                         <td class="px-6 py-4 flex justify-around">
                         
-                         <div class=""> <form action="" method="POST">
-                            @csrf
-                            @method('delete')
-                            <button class="btn bg-red-500 text-white rounded p-1">delet</button>
-                          </form></div>
+                            @can('delete')
+                            <div class=""> <form action="" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button class="btn bg-red-500 text-white rounded p-1">delete</button>
+                              </form></div>
+                            @endcan
                         </td>
                     
                     @empty

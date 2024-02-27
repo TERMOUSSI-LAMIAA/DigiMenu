@@ -50,7 +50,15 @@
                     </x-nav-link>
                     @endrole
                     @role('operator')
-
+                    @can('add')
+                    <x-nav-link :href="route('menu.index')" :active="request()->routeIs('menu.index')">
+                        {{ __('Gestion menus') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('Article.index')" :active="request()->routeIs('Article.index')">
+                        {{ __('Gestion articles') }}
+                    </x-nav-link>
+                    @endcan
+                   
                     @endrole
                 </div>
             </div>

@@ -11,7 +11,7 @@ class Article extends Model
 {
     use HasFactory;
     protected $table='article';
-    protected $fillable = ['title', 'description', 'price', 'img'];
+    protected $fillable = ['title', 'description', 'price', 'menu_id','categorie_id'];
 
     public function menu() {
         return $this->belongsTo(Menu::class);
