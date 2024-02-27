@@ -38,7 +38,7 @@ class providerController extends Controller
                 'email_verified_at' => null,
                 'abonnement_id'=>1,
                 'start_date_abonnement'=>now(),
-            'end_date_abonnement'=>now()->addDay(),
+            'end_date_abonnement'=>now()->addMinutes(3),
             ]);
             
             $user->assignRole('owner');
