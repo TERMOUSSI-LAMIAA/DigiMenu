@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\UserController;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\welecomeController;
+use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\abonnementController;
 use App\Http\Controllers\Auth\providerController;
 
@@ -21,10 +22,12 @@ use App\Http\Controllers\Auth\providerController;
 |
 */
 // Auth::routes(['verify' => true]);
+ 
+Route::get('/',[welecomeController::class,'index']);
 
-Route::get('/', function () {
-    return view('welcome');
-});Route::middleware(['web'])->group(function () {
+
+
+Route::middleware(['web'])->group(function () {
     Route::get('/auth/{provider}/redirect', [providerController::class, 'redirect']);
     Route::get('/auth/{provider}/callback', [providerController::class, 'callback']);
 });
@@ -33,6 +36,10 @@ Route::middleware(['auth', 'verified','role:operator'])->group(function () {
     Route::get('/dashboard_oper', function () {
         return view('dashboard_oper');
     })->name('dashboard_oper');
+    Route::resource('/menu',MenuController::class);
+    Route::resource('/Article',ArticleController::class); 
+
+
     
    
 });
@@ -46,6 +53,8 @@ Route::middleware(['auth', 'verified','role:owner'])->group(function () {
     Route::get('/operator/GetOperator', [UserController::class, 'GetOwnerOperators'])->name('operators.GetOpera');
     Route::get('/operator/addOperator', [UserController::class, 'Addoperator_own'])->name('Addoperator_own');
     Route::post('/operator/storeOperator', [UserController::class, 'storeoperator'])->name('storeOperator');
+    Route::post('/operator.permition/{item}', [UserController::class, 'permition_ad'])->name('operator.permition');
+    Route::post('/operator.permitions/{item}', [UserController::class, 'permition_delete'])->name('operator.permition_delete');
     Route::resource('/menus',MenuController::class);
     Route::resource('/Articles',ArticleController::class); 
 
@@ -59,6 +68,7 @@ Route::middleware(['auth', 'verified','role:Admin'])->group(function () {
     Route::get('/operators/GetOperators', [UserController::class, 'GetOperators'])->name('operators.GetOperators');
     Route::get('/operators/Addoperator', [UserController::class, 'Addoperator'])->name('operators.Addoperator');
     Route::post('/operators/{item}', [UserController::class, 'deleteUser'])->name('Users.deleteUser');
+    Route::post('/operators.role/{item}', [UserController::class, 'asignowner'])->name('Users.asignowner');
     Route::post('/Users.store', [UserController::class, 'storeoperator'])->name('Users.store');
     Route::resource('/categories',CategorieController::class); 
 

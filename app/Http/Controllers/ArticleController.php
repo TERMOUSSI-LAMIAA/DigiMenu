@@ -55,9 +55,10 @@ class ArticleController extends Controller
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),
                 'price' => $request->input('price'),
+
                 'menu_id' => $request->input('menu'),
-                'categorie_id' => $request->input('category'),
-          
+                'categorie_id' => $request->input('category'),             
+                
             ]);
       
         return redirect()->route('Articles.index')->with('success', 'article added successfully');  

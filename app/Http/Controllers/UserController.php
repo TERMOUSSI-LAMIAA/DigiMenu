@@ -42,6 +42,20 @@ class UserController extends Controller
         $restaurant=restaurant::all();
         return View('Users.create',compact('restaurant'));
     }
+    public function asignowner(User $item){
+        $owner=User::where('restaurant_id',$item->restaurant_id)->whereHas('roles', function ($query) {
+            $query->where('name', 'owner');
+       })->first();
+       
+       $item->abonnement_id=$owner->abonnement_id;
+       $item->update();
+        $item->removeRole('operator');
+       
+        $item->assignRole('owner');
+
+        return redirect(route('operators.GetOperators')); 
+
+    }
     public function OWNER(){
       $user = User::where('restaurant_id', '!=', null)
     ->where('id', Auth::id())
@@ -129,5 +143,18 @@ class UserController extends Controller
         });
     }
 
-    
+    public function permition_ad(User $item){
+
+             $item->givePermissionTo('add');
+
+            return redirect(RouteServiceProvider::OWNER);
+
+
+    }
+    public function permition_delete(User $item){
+
+        $item->givePermissionTo('delete');
+
+       return redirect(RouteServiceProvider::OWNER);
+}
 }

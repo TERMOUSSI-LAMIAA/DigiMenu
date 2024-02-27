@@ -13,7 +13,7 @@
 
             @endrole
             @role('operator')
-            <a href="{{ route('Addoperator_own') }}" class="btn bg-blue-500 text-white rounded p-2 mx-6 my-6">add menu</a>
+            <a href="{{ route('menu.create') }}" class="btn bg-blue-500 text-white rounded p-2 mx-6 my-6">add menu</a>
 
             @endrole
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
