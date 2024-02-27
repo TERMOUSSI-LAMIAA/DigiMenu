@@ -29,11 +29,11 @@
                        <th scope="col" class="px-6 py-3">
                             price
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            image
+                         <th scope="col" class="px-6 py-3">
+                            categorie
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            video
+                         <th scope="col" class="px-6 py-3">
+                            menu
                         </th>
                         <th scope="col" class="px-6 py-3 text-center">
                             actions
@@ -48,10 +48,18 @@
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                            {{ $item->title }}
                         </th>
-                        <td class="px-6 py-4">
-                          
-                        </td>
-                       
+                       <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                           {{ $item->description }}
+                        </th>
+                       <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                           {{ $item->price }}
+                        </th>
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                           {{ $item->categorie->title }}
+                        </th>
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                           {{ $item->menu->title }}
+                        </th>
                         <td class="px-6 py-4 flex justify-around">
                         @can('delete')
                         <div class=""> <form action="" method="POST">
@@ -66,7 +74,10 @@
                             @method('delete')
                             <button class="btn bg-red-500 text-white rounded p-1">delete</button>
                           </form></div>
-                          @endrole
+                          <div class=""> <form action="" method="POST">
+                            @csrf
+                            <button class="btn bg-green-500 text-white rounded p-1">update</button>
+                          </form></div>
                         </td>
                     
                     @empty

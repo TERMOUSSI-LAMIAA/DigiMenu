@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Menu;
+use App\Models\Categorie;
 use App\Models\Article;
 
 
@@ -20,7 +21,8 @@ class ArticleController extends Controller
         $user=User::where('id',Auth::id())->first();
         $menus = Menu::where('restaurant_id', $user->restaurant_id)->pluck('id');
 
-        $articles = Article::whereIn('menu_id', $menus)->get();
+        // $articles = Article::whereIn('menu_id', $menus)->get();
+        $articles=Article::all();
         return view('owner.articles',compact('articles'));
     }
 
@@ -29,7 +31,10 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view("owner.add_article");
+        $user=User::where('id',Auth::id())->first();
+        $menus=Menu::where('restaurant_id', $user->restaurant_id)->get();
+        $catgs=Categorie::all();
+        return view("owner.add_article",compact("menus","catgs"));
     }
 
     /**
@@ -41,15 +46,18 @@ class ArticleController extends Controller
             'title' => 'required|string|max:255',
             'description'=>'required|string',
             'price' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category' => 'required', 
+            'menu' => 'required', 
+            // 'menu_id' => 'required|exists:menu,id', 
         ]);
 
         $menu = Article::create([
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),
                 'price' => $request->input('price'),
-                'img' => $request->file('image')->store('imgs', 'public'),
-             
+
+                'menu_id' => $request->input('menu'),
+                'categorie_id' => $request->input('category'),             
                 
             ]);
       
