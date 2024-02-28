@@ -35,7 +35,11 @@
                         @endforeach
                     </select>
                 </div>
-
+{{$user->abonnement}}
+<div class="mt-4">
+    <x-input-label for="media" :value="__('image/video')" />
+    <input id="media" name="media" type="file" class="form-input rounded-md shadow-sm mt-1 block w-full" accept={{($user->abonnement->type_media == 'video ') ? 'image/*,video/*' : 'image/*'}} required />
+</div>
                 <!-- category -->
                 <div class="mt-4">
                     <x-input-label for="category" :value="__('Category')" />

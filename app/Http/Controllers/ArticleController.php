@@ -34,7 +34,7 @@ class ArticleController extends Controller
         $user=User::where('id',Auth::id())->first();
         $menus=Menu::where('restaurant_id', $user->restaurant_id)->get();
         $catgs=Categorie::all();
-        return view("owner.add_article",compact("menus","catgs"));
+        return view("owner.add_article",compact("menus","catgs","user"));
     }
 
     /**
