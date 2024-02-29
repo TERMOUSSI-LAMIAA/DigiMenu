@@ -35,6 +35,7 @@
                     <x-nav-link :href="route('dashboard_oner')" :active="request()->routeIs('dashboard_oner')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                  
                     <x-nav-link :href="route('plan.plan_owner')" :active="request()->routeIs('plan.plan_owner')">
                         {{ __(" plan d'abonnement") }}
                     </x-nav-link>

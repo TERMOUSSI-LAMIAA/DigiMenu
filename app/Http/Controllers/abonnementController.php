@@ -29,12 +29,11 @@ class abonnementController extends Controller
     public function shows_plan(Abonnement $abo)
     {
         $user=User::where('id',Auth::id())->first();
-           
-             $user->abonnement_id =  $abo->id;
+               
+             $user->abonnement_id =$abo->id;
+             $user->start_date_abonnement=now();
+             $user->end_date_abonnement=now()->addDays($abo->nbr_days);
              $user->update();
-             $abo->start_date=now();
-             $abo->update();
-
              return redirect()->route('plan.plan_owner')->with('success', 'Thank you for showsing our service');
 
     }
