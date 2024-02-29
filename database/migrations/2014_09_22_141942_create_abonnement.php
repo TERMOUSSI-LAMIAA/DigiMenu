@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('type');
             $table->integer('nbr_article');
-            $table->enum('type_media', ['image', 'video']);            $table->integer('nbr_scan');
+            $table->integer('nbr_days');
+            $table->string('price');
+            $table->enum('type_media', ['image', 'video']);   
+            $table->integer('nbr_scan');
             $table->timestamps();
             $table->softDeletes();
         });

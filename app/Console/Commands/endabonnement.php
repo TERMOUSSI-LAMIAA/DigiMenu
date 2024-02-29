@@ -37,6 +37,7 @@ class endabonnement extends Command
         }
     }
     
+   
     private function sendAbonnementEndingEmail($user, $abonnement)
     {
         $data = ['user' => $user, 'abonnement' => $abonnement];

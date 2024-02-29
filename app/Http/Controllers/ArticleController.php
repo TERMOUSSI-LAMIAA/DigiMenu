@@ -33,9 +33,19 @@ class ArticleController extends Controller
     {
         $user=User::where('id',Auth::id())->first();
         $menus=Menu::where('restaurant_id', $user->restaurant_id)->get();
+        $ar=array();
+        foreach ($menus as $m){
+            $Articls=Article::where('menu_id',$m->id)->get();
+            foreach($Articls as $art){
+                $ar[]=$art;
+            }
+        }
+
+       
         $catgs=Categorie::all();
 
-        return view("owner.add_article",compact("menus","catgs","user"));
+       
+        return view("owner.add_article",compact("menus","catgs","user",'ar'));
     }
 
     /**
@@ -74,7 +84,8 @@ class ArticleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $articles=Article::where('menu_id',$id)->get();
+        return view('owner.articles',compact('articles'));
     }
 
     /**

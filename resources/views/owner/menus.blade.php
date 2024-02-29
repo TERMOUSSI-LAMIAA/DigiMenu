@@ -44,7 +44,10 @@
                            {{ $item->title }}
                         </th>
                         <td class="px-6 py-4">
-                        {{ QrCode::size(100)->generate('http://localhost/Articles/'.$item->id) }}
+                           
+                        {{-- {{ QrCode::size(100)->generate('http://localhost/Articles/show/'.$item->id) }} --}}
+                        {{ QrCode::size(100)->generate(route('Articles.show',$item)) }}
+
 
                         {{-- @php
                         $qrCode = QrCode::size(100)->generate('test');

@@ -35,7 +35,7 @@
                         @endforeach
                     </select>
                 </div>
-{{$user->abonnement}}
+
 <div class="mt-4">
     <x-input-label for="media" :value="__('image/video')" />
     <input id="media" name="media" type="file" class="form-input rounded-md shadow-sm mt-1 block w-full" accept={{($user->abonnement->type_media == 'video ') ? 'image/*,video/*' : 'image/*'}} required />
@@ -53,7 +53,13 @@
 
                 <!-- Submit button for the form -->
                 <div class="mt-4">
-                    <x-primary-button type="submit">Add</x-primary-button>
+                   {{-- {{ $ar }} --}}
+                   @if ($user->abonnement->nbr_article>count($ar ))
+                   <x-primary-button type="submit">Add</x-primary-button>
+                    @else
+                     you added the max articles fore this abonnement
+                     <a href="{{ route('plan.plan_owner') }}" class="btn bg-blue-400">upgrade abonnement</a>
+                   @endif
                 </div>
             </form>
         </x-slot>
