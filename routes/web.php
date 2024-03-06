@@ -10,7 +10,7 @@ use App\Http\Controllers\welecomeController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\abonnementController;
 use App\Http\Controllers\Auth\providerController;
-
+use App\Http\Controllers\ClientController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -77,7 +77,7 @@ Route::middleware(['auth', 'verified','role:Admin'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delet    e('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+Route::get('/client',[ClientController::class,'getRestaurants'])->name('client');
 require __DIR__.'/auth.php';
