@@ -11,7 +11,7 @@
                 @foreach ($restaurants as $restaurant)
                     <div class="p-4 border border-gray-200">
                         <h3 class="text-lg font-semibold">{{ $restaurant->name }}</h3>
-                      
+                        <a href="{{ route('restMenus', ['restaurant' => $restaurant->id]) }}" class="bg-blue-500 text-white px-4 py-2 rounded-full mt-2 inline-block">View Menus</a>
                     </div>
                 @endforeach
             </div>

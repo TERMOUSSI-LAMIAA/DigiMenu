@@ -1,12 +1,22 @@
-<x-app-layout>
-    {{-- <x-slot name="header">
+<x-guest-layout>
+    <x-slot name="header">
         <h2 class="font-semibold text-center text-xl text-gray-800 leading-tight">
-            {{ __('Gestion menus') }}
+            {{ __('Menu List') }}
         </h2>
-    </x-slot> --}}
+    </x-slot>
 
     <x-slot name="slot">
-        
-        
+        <div class="container mx-auto">
+            <div class="grid grid-cols-2 gap-4">
+                @forelse ($menus as $menu)
+                    <div class="p-4 border border-gray-200">
+                        <h3 class="text-lg font-semibold">{{ $menu->title }}</h3>
+                        <p>Restaurant: {{ $menu->restaurant->name }}</p>
+                    </div>
+                @empty
+                    <p class="text-center text-gray-500">No menus available.</p>
+                @endforelse
+            </div>
+        </div>
     </x-slot>
-</x-app-layout>
+</x-guest-layout>
