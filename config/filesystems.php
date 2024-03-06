@@ -29,6 +29,11 @@ return [
     */
 
     'disks' => [
+        'media' => [
+            'driver' => 'local',
+            'root'   => public_path('media'),
+            'url'    => env('APP_URL').'/media',
+        ],
 
         'local' => [
             'driver' => 'local',
@@ -55,7 +60,6 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
-
     ],
 
     /*

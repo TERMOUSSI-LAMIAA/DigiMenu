@@ -7,14 +7,14 @@ use App\Models\Abonnement;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
-class endabonnement extends Command
+class deadabonnement extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:endabonnement';
+    protected $signature = 'app:deadabonnement';
 
     /**
      * The console command description.
@@ -28,8 +28,7 @@ class endabonnement extends Command
      */
     public function handle()
     {
-        // Find users with Abonnements ending within the next two minutes
-        $users = User::where('end_date_abonnement', '>=', now()->minutes(2))->get();
+        $users = User::where('end_date_abonnement', '<=', now())->get();
        
         foreach ($users as $user) {
             $abonnement = Abonnement::find($user->abonnement_id);
@@ -37,7 +36,6 @@ class endabonnement extends Command
         }
     }
     
-   
     private function sendAbonnementEndingEmail($user, $abonnement)
     {
         $data = ['user' => $user, 'abonnement' => $abonnement];
@@ -46,5 +44,6 @@ class endabonnement extends Command
             $message->to($user->email, $user->name)
                 ->subject('Your Abonnement is Ending Soon');
         });
+       
     }
 }

@@ -78,6 +78,7 @@
                             @csrf
                             <button class="btn bg-green-500 text-white rounded p-1">update</button>
                           </form></div>
+                          @endrole
                         </td>
                     @endrole
                     @empty

@@ -43,9 +43,12 @@ class MenuController extends Controller
             $menu = Menu::create([
                 'title' => $request->input('title'),
                 'restaurant_id' => $user->restaurant_id,
-            ]);   
+            ]);  
+            return redirect()->route('menus.index')->with('success', 'Menu  added successfully');  
+ 
         }
-        return redirect()->route('menus.index')->with('success', 'Menu  added successfully');  
+        return redirect()->route('menus.index')->with('danger', 'you dont have a restaurant');
+
     }
 
     /**
@@ -53,7 +56,7 @@ class MenuController extends Controller
      */
     public function show(string $id)
     {
-        //
+        dd($id);
     }
 
     /**

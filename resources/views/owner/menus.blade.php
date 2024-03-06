@@ -44,7 +44,10 @@
                            {{ $item->title }}
                         </th>
                         <td class="px-6 py-4">
-                        {{ QrCode::size(100)->generate('http://localhost/Articles/'.$item->id) }}
+                           
+                        {{-- {{ QrCode::size(100)->generate('http://localhost/Articles/show/'.$item->id) }} --}}
+                        {{ QrCode::size(100)->generate(route('Articles.show',$item)) }}
+
 
                         {{-- @php
                         $qrCode = QrCode::size(100)->generate('test');
@@ -54,11 +57,13 @@
                        
                         <td class="px-6 py-4 flex justify-around">
                         
-                         <div class=""> <form action="" method="POST">
-                            @csrf
-                            @method('delete')
-                            <button class="btn bg-red-500 text-white rounded p-1">delete</button>
-                          </form></div>
+                            @can('delete')
+                            <div class=""> <form action="" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button class="btn bg-red-500 text-white rounded p-1">delete</button>
+                              </form></div>
+                            @endcan
                         </td>
                     
                     @empty

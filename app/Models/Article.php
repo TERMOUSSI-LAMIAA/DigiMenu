@@ -5,11 +5,14 @@ namespace App\Models;
 use App\Models\Categorie;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-
-class Article extends Model
+class Article extends Model implements HasMedia
 {
-    use HasFactory;
+   
+    use HasFactory, InteractsWithMedia;
+    
     protected $table='article';
     protected $fillable = ['title', 'description', 'price', 'menu_id','categorie_id'];
 

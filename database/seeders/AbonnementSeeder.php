@@ -16,6 +16,8 @@ class AbonnementSeeder extends Seeder
         Abonnement::create([
             'type'=>'Plan Gratuit',
             'nbr_article'=>10,
+            'nbr_days'=>10,
+            'price'=>'FREE',
             'type_media'=>'image',
             'nbr_scan'=>5,
            ]);
@@ -23,6 +25,8 @@ class AbonnementSeeder extends Seeder
            Abonnement::create([
             'type'=>'Plan Standard',
             'nbr_article'=>10,
+            'nbr_days'=>10,
+            'price'=>10,
             'type_media'=>'video',
             'nbr_scan'=>6,
            ]);
@@ -30,6 +34,8 @@ class AbonnementSeeder extends Seeder
            Abonnement::create([
             'type'=>'Plan Premium',
             'nbr_article'=>10,
+            'nbr_days'=>10,
+            'price'=>10,
             'type_media'=>'video',
             'nbr_scan'=>7,
            ]);
