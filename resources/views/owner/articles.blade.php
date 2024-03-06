@@ -79,7 +79,7 @@
                             <button class="btn bg-green-500 text-white rounded p-1">update</button>
                           </form></div>
                         </td>
-                    
+                    @endrole
                     @empty
                     <td colspan="12"><h1 class="text-center">no articles yet</h1></td> 
                 </tr>
