@@ -63,11 +63,13 @@ class UserController extends Controller
         $query->where('name', 'owner');
     })
     ->first();
-
+    $operators = User::whereHas('roles', function ($query) {
+        $query->where('name', 'operator');
+   })->get();
 
 
     
-        return view('dashboard_oner',compact('user'));
+        return view('dashboard_oner',compact('user','operators'));
     }
    
     public function AddResturant(){
