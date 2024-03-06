@@ -8,6 +8,7 @@ use App\Models\Abonnement;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Restaurant;
 
 class abonnementController extends Controller
 {
@@ -29,8 +30,11 @@ class abonnementController extends Controller
     public function shows_plan(Abonnement $abo)
     {
         $user=User::where('id',Auth::id())->first();
-               
+               $resto=Restaurant::find( $user->restaurant_id);
+
              $user->abonnement_id =$abo->id;
+             $resto->nbr_scan=$abo->nbr_scan;
+             $resto->update();
              $user->start_date_abonnement=now();
              $user->end_date_abonnement=now()->addDays($abo->nbr_days);
              $user->update();
@@ -54,14 +58,18 @@ class abonnementController extends Controller
         $request->validate([
             'type' => ['required', 'string', 'max:255', Rule::in(['Plan Gratuit', 'Plan Standard', 'Plan Premium'])],
             'nbr_article' => 'required|integer',
+            'price' => 'required|string',
             'type_media' => 'required|string|max:255',Rule::in(['image', 'video']),
             'nbr_scan' => 'required|integer',
+            'nbr_days' => 'required|integer',
         ]);
         Abonnement::create([
          'type'=>$request->type,
          'nbr_article'=>$request->nbr_article,
          'type_media'=>$request->type_media,
          'nbr_scan'=>$request->nbr_scan,
+         'price' => $request->price,
+         'nbr_days'=>$request->nbr_days,
         ]);
 
         return redirect()->route('abonnements.index')->with('success', 'Abonnement created successfully');

@@ -6,7 +6,7 @@ use View;
 use Rules\Password;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
-use App\Models\restaurant;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -76,6 +76,7 @@ class UserController extends Controller
     }
 
     public function storeResturant(Request $request){
+
         $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
@@ -85,6 +86,7 @@ class UserController extends Controller
             'name' =>$request->name, 
             'address' =>$request->address, 
             'opening_hr' =>$request->opening_hr, 
+
         ]);
         $user = User::where('id', Auth::id())
         ->whereHas('roles', function ($query) {

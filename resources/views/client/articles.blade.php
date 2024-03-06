@@ -6,20 +6,16 @@
     </x-slot>
 
     <x-slot name="slot">
-        @if(session('error'))
-    <div class="bg-red-500 text-white p-4 mb-4 rounded-md">
-        {{ session('error') }}
-    </div>
-@endif
         <div class="container mx-auto">
             <div class="grid grid-cols-2 gap-4">
-                @forelse ($menus as $menu)
+                @forelse ($articles as $article)
                     <div class="p-4 border border-gray-200">
-                        <h3 class="text-lg font-semibold">{{ $menu->title }}</h3>
-                        <p>Restaurant: {{ $menu->restaurant->name }}</p>
-                         {{ QrCode::size(100)->generate(route('getArticles',$menu)) }}
+                        <h3 class="text-lg font-semibold">{{ $article->title }}</h3>
+                        <p>Restaurant: {{ $article->menu->name }}</p>
+                       
                     </div>
                 @empty
+                <p>num:{{$num_scan}}</p>
                     <p class="text-center text-gray-500">No menus available.</p>
                 @endforelse
             </div>
