@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('address');
             $table->time('opening_hr');
+            $table->unsignedInteger('nbr_scan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

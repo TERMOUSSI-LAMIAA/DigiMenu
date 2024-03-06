@@ -81,4 +81,6 @@ Route::middleware('auth')->group(function () {
 });
 Route::get('/client',[ClientController::class,'getRestaurants'])->name('client');
 Route::get('/clientMenus/{restaurant}',[ClientController::class,'getMenus'])->name('restMenus');
+
+Route::get('/getArticles/{menu}',[ClientController::class,'getArticles'])->name('getArticles');
 require __DIR__.'/auth.php';
