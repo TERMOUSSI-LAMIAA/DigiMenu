@@ -8,6 +8,7 @@
                     <span class="fa fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
+                    
                      @if (Route::has('login'))
                     <div class="navbar-nav ms-auto py-0 pe-4">
                         <a href="index.html" class="nav-item nav-link active">Home</a>
@@ -26,14 +27,22 @@
                     </div>
                     
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="nav-item nav-link">Dashboard</a>
-                        @else
+                        @role('Admin')
+                        <a href="{{ url('/dashboard') }}" class="fnav-item nav-link">Dashboard</a>
+                        @endrole
+                        @role('owner')
+                        <a href="{{ url('/dashboard_oner') }}" class="fnav-item nav-link">Dashboard</a>
+                        @endrole
+                        @role('ownar')
+                        <a href="{{ url('/dashboard_oper') }}" class="fnav-item nav-link">Dashboard</a>
+                        @endrole                        @else
                             <a href="{{ route('login') }}" class="nav-item nav-link">Log in</a>
             
                     @if (Route::has('register'))
                     <a href="{{ route('register') }}" class="btn btn-primary py-2 px-4">Register</a>
-                    @endauth
+                    @endif
                 </div>
+                @endauth
                 @endif
             </nav>
 
@@ -43,7 +52,16 @@
                         <div class="col-lg-6 text-center text-lg-start">
                             <h1 class="display-3 text-white animated slideInLeft">Enjoy Our<br>Delicious Meal</h1>
                             <p class="text-white animated slideInLeft mb-4 pb-2">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                            <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A Table</a>
+                            @auth
+                                
+                            @else
+                                
+                            
+                            @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLef">Register</a>
+                            @endif
+                                
+                            @endauth
                         </div>
                         <div class="col-lg-6 text-center text-lg-end overflow-hidden">
                             <img class="img-fluid" src="img/hero.png" alt="">

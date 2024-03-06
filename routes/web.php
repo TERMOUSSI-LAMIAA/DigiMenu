@@ -23,7 +23,7 @@ use App\Http\Controllers\ClientController;
 */
 // Auth::routes(['verify' => true]);
  
-Route::get('/',[welecomeController::class,'index']);
+Route::get('/',[welecomeController::class,'index'])->name('/');
 
 
 
