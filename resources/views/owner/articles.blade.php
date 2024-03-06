@@ -14,7 +14,7 @@
             @role('operator')
 
             <a href="{{ route('Article.create') }}" class="btn bg-blue-500 text-white rounded p-2 mx-6 my-6">add article</a>
-        @endrole
+            @endrole
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                    
@@ -78,9 +78,9 @@
                             @csrf
                             <button class="btn bg-green-500 text-white rounded p-1">update</button>
                           </form></div>
-                          @endrole
+                        @endrole
                         </td>
-                    
+                    {{-- @endrole --}}
                     @empty
                     <td colspan="12"><h1 class="text-center">no articles yet</h1></td> 
                 </tr>
