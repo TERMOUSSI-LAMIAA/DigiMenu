@@ -14,6 +14,7 @@ class ClientController extends Controller
         return view("client.restaurants",compact("restaurants"));
     }
     public function getMenus($restaurant){
-        $menus=Menus::where('restaurant_id',$restaurant);
+        $menus=Menu::where('restaurant_id',$restaurant);
+        return view("client.menus",compact("menus"));
     }
 }
