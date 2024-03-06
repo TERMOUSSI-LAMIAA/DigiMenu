@@ -13,9 +13,10 @@ class Abonnement extends Model
 
     protected $fillable=[
         'type',
-'start_date',
+'nbr_days',
 'nbr_article',
 'type_media',
+'price',
 'nbr_scan',
     ];
     protected $table='abonnement';
