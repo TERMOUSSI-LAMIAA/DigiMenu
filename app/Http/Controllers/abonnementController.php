@@ -33,8 +33,8 @@ class abonnementController extends Controller
                $resto=Restaurant::find( $user->restaurant_id);
 
              $user->abonnement_id =$abo->id;
-             $resto->nbr_scan=$abo->nbr_scan;
-             $resto->update();
+            //? $resto->nbr_scan=$abo->nbr_scan;
+           //?  $resto->update();
              $user->start_date_abonnement=now();
              $user->end_date_abonnement=now()->addDays($abo->nbr_days);
              $user->update();
