@@ -18,12 +18,12 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $user=User::where('id',Auth::id())->first();
+        $user = User::where('id', Auth::id())->first();
         $menus = Menu::where('restaurant_id', $user->restaurant_id)->pluck('id');
 
         // $articles = Article::whereIn('menu_id', $menus)->get();
-        $articles=Article::all();
-        return view('owner.articles',compact('articles'));
+        $articles = Article::all();
+        return view('owner.articles', compact('articles'));
     }
 
     /**
@@ -31,21 +31,21 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $user=User::where('id',Auth::id())->first();
-        $menus=Menu::where('restaurant_id', $user->restaurant_id)->get();
-        $ar=array();
-        foreach ($menus as $m){
-            $Articls=Article::where('menu_id',$m->id)->get();
-            foreach($Articls as $art){
-                $ar[]=$art;
+        $user = User::where('id', Auth::id())->first();
+        $menus = Menu::where('restaurant_id', $user->restaurant_id)->get();
+        $ar = array();
+        foreach ($menus as $m) {
+            $Articls = Article::where('menu_id', $m->id)->get();
+            foreach ($Articls as $art) {
+                $ar[] = $art;
             }
         }
 
-       
-        $catgs=Categorie::all();
 
-       
-        return view("owner.add_article",compact("menus","catgs","user",'ar'));
+        $catgs = Categorie::all();
+
+
+        return view("owner.add_article", compact("menus", "catgs", "user", 'ar'));
     }
 
     /**
@@ -53,39 +53,43 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-       $request->validate([
+        
+        $request->validate([
             'title' => 'required|string|max:255',
-            'description'=>'required|string',
+            'description' => 'required|string',
             'price' => 'required|numeric',
-            'category' => 'required', 
-            'menu' => 'required', 
+            'category' => 'required',
+            'menu' => 'required',
+            'media' => 'required',
             // 'menu_id' => 'required|exists:menu,id', 
         ]);
 
-        $menu = Article::create([
-                'title' => $request->input('title'),
-                'description' => $request->input('description'),
-                'price' => $request->input('price'),
+        $article = Article::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
 
-                'menu_id' => $request->input('menu'),
-                'categorie_id' => $request->input('category'),             
-                
-            ]);
+            'menu_id' => $request->input('menu'),
+            'categorie_id' => $request->input('category'),
 
-            $data = $request->validated();
-            $article = Article::create($data);
-            $article->addMediaFromRequest('media')->toMediaCollection('images');
+        ]);
+
       
-        return redirect()->route('Articles.index')->with('success', 'article added successfully');  
+        $article->addMediaFromRequest('media')->toMediaCollection('images');
+
+        return redirect()->route('Articles.index')->with('success', 'article added successfully');
     }
+
+
+     
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $articles=Article::where('menu_id',$id)->get();
-        return view('owner.articles',compact('articles'));
+        $articles = Article::where('menu_id', $id)->get();
+        return view('owner.articles', compact('articles'));
     }
 
     /**
@@ -100,15 +104,46 @@ class ArticleController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        //
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'price' => 'required|numeric',
+        'category' => 'required',
+        'menu' => 'required',
+    ]);
+
+    $article = Article::findOrFail($id);
+
+    // Update article attributes
+    $article->update([
+        'title' => $request->input('title'),
+        'description' => $request->input('description'),
+        'price' => $request->input('price'),
+        'menu_id' => $request->input('menu'),
+        'categorie_id' => $request->input('category'),
+    ]);
+
+    // Handle media update
+    if ($request->hasFile('media')) {
+        // Remove existing media
+        $article->clearMediaCollection('images');
+
+        // Add new media
+        $article->addMediaFromRequest('media')->toMediaCollection('images');
     }
+
+    return redirect()->route('Articles.index')->with('success', 'Article updated successfully');
+}
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $article = Article::findOrFail($id);
+        $article->delete();
+
+        return redirect()->route('Articles.index')->with('success', 'Article deleted successfully');
     }
 }
