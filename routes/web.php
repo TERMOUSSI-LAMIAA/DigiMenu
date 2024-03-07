@@ -50,8 +50,8 @@ Route::middleware(['auth', 'verified','role:owner'])->group(function () {
     Route::post('/create_resto',[UserController::class, 'storeResturant'] )->name('create_resto');
     Route::get('/plan',[abonnementController::class,'plan_owner'])->name('plan.plan_owner');
     Route::post('/plan/{abo}',[abonnementController::class,'shows_plan'])->name('plan.shows_plan');
-    Route::get('/operator/GetOperator', [UserController::class, 'GetOwnerOperators'])->name('operators.GetOpera');
-    Route::get('/operator/addOperator', [UserController::class, 'Addoperator_own'])->name('Addoperator_own');
+    Route::get('/GetOpera', [UserController::class, 'GetOwnerOperators'])->name('GetOpera');
+    Route::get('/addOperator', [UserController::class, 'Addoperator_own'])->name('Addoperator_own');
     Route::post('/operator/storeOperator', [UserController::class, 'storeoperator'])->name('storeOperator');
     Route::post('/operator.permition/{item}', [UserController::class, 'permition_ad'])->name('operator.permition');
     Route::post('/operator.permitions/{item}', [UserController::class, 'permition_delete'])->name('operator.permition_delete');
@@ -65,8 +65,8 @@ Route::middleware(['auth', 'verified','role:Admin'])->group(function () {
     })->name('dashboard');
     
    Route::resource('/abonnements',abonnementController::class);
-    Route::get('/operators/GetOperators', [UserController::class, 'GetOperators'])->name('operators.GetOperators');
-    Route::get('/operators/Addoperator', [UserController::class, 'Addoperator'])->name('operators.Addoperator');
+    Route::get('/GetOperators', [UserController::class, 'GetOperators'])->name('operators.GetOperators');
+    Route::get('/Addoperator', [UserController::class, 'Addoperator'])->name('operators.Addoperator');
     Route::post('/operators/{item}', [UserController::class, 'deleteUser'])->name('Users.deleteUser');
     Route::post('/operators.role/{item}', [UserController::class, 'asignowner'])->name('Users.asignowner');
     Route::post('/Users.store', [UserController::class, 'storeoperator'])->name('Users.store');

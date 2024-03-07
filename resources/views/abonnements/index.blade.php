@@ -61,7 +61,7 @@
                         
                          <div class=""> <form action="" method="POST">
                             @csrf
-                            @method('delete')
+                          
                             <button class="btn bg-red-500 text-white rounded p-1">delet</button>
                           </form></div>
 

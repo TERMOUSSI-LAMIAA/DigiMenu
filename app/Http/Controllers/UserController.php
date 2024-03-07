@@ -22,7 +22,7 @@ class UserController extends Controller
             $query->where('name', 'operator');
        })->get();
     //    dd($Users);
-        return view('Users.operators',compact('operators'));
+        return view('operateurs',compact('operators'));
     }
 
     
@@ -32,7 +32,7 @@ class UserController extends Controller
             $query->where('name', 'operator');
        })->get();
     //    dd($Users);
-        return view('Users.operators',compact('operators'));
+        return view('operateurs',compact('operators'));
     }
     public function Addoperator_own(){
         $owner=User::where('id',Auth::id())->first();
@@ -78,7 +78,7 @@ class UserController extends Controller
     }
 
     public function storeResturant(Request $request){
-           dd($request);
+           
         $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
