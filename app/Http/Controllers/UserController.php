@@ -6,7 +6,7 @@ use View;
 use Rules\Password;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
-use App\Models\Restaurant;
+use App\Models\restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -78,13 +78,13 @@ class UserController extends Controller
     }
 
     public function storeResturant(Request $request){
-
+           dd($request);
         $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'opening_hr' => 'required|date_format:H:i',
         ]);
-       $resturant= restaurant::create([
+       $resturant=restaurant::create([
             'name' =>$request->name, 
             'address' =>$request->address, 
             'opening_hr' =>$request->opening_hr, 
@@ -96,7 +96,7 @@ class UserController extends Controller
         })
         ->first();
         $user->restaurant_id=$resturant->id;
-        $user->update();
+        $user->save();
         
 
         return redirect(route('dashboard_oner')); 

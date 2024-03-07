@@ -47,7 +47,7 @@ Route::middleware(['auth', 'verified','role:operator'])->group(function () {
 Route::middleware(['auth', 'verified','role:owner'])->group(function () {
     Route::get('/dashboard_oner',[UserController::class, 'OWNER'] )->name('dashboard_oner');
     Route::get('/resturant',[UserController::class, 'AddResturant'] )->name('resturant.create');
-    Route::post('/resturant.store',[UserController::class, 'storeResturant'] )->name('resturant.store');
+    Route::post('/create_resto',[UserController::class, 'storeResturant'] )->name('create_resto');
     Route::get('/plan',[abonnementController::class,'plan_owner'])->name('plan.plan_owner');
     Route::post('/plan/{abo}',[abonnementController::class,'shows_plan'])->name('plan.shows_plan');
     Route::get('/operator/GetOperator', [UserController::class, 'GetOwnerOperators'])->name('operators.GetOpera');

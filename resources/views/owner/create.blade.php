@@ -5,8 +5,8 @@
         </h2>
     </x-slot>
     <div class="container mx-auto mt-8">
-        <form action="{{ route('resturant.store') }}" method="POST">
-            @csrf
+        <form action="{{ route('create_resto') }}" method="POST">
+          @csrf
 
             <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-600">Restaurant Name</label>

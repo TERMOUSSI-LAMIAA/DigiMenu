@@ -1,62 +1,48 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Welcome ' . Auth::user()->name) }}
-        </h2>
-        <section id="why-us" class="why-us bg-blue-500 py-16">
-            <div class="container mx-auto" data-aos="fade-up">
-        
-                <div class="flex flex-wrap gap-4">
-        
-                    <div class="lg:w-1/3" data-aos="fade-up" data-aos-delay="100">
-                        <div class="bg-white p-8 rounded-lg shadow-md">
-                            <h3 class="text-3xl font-bold mb-4">Why Choose Yummy?</h3>
-                            <p class="text-gray-700">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.
-                            </p>
-                            <div class="text-center mt-6">
-                                <a href="#" class="bg-blue-700 text-white py-2 px-6 rounded-md inline-block">Learn More <i class="bx bx-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div><!-- End Why Box -->
-        
-                    <div class="lg:w-2/3 flex items-center">
-                        <div class="flex flex-wrap gap-4">
-        
-                            <div class="xl:w-1/3" data-aos="fade-up" data-aos-delay="200">
-                                <div class="bg-white p-8 rounded-lg shadow-md text-center">
-                                    <i class="bi bi-clipboard-data text-4xl mb-4"></i>
-                                    <h4 class="text-lg font-bold mb-2">Corporis voluptates officia eiusmod</h4>
-                                    <p class="text-gray-700">Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
-                                </div>
-                            </div><!-- End Icon Box -->
-        
-                            <div class="xl:w-1/3" data-aos="fade-up" data-aos-delay="300">
-                                <div class="bg-white p-8 rounded-lg shadow-md text-center">
-                                    <i class="bi bi-gem text-4xl mb-4"></i>
-                                    <h4 class="text-lg font-bold mb-2">Ullamco laboris ladore pan</h4>
-                                    <p class="text-gray-700">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
-                                </div>
-                            </div><!-- End Icon Box -->
-        
-                            <div class="xl:w-1/3" data-aos="fade-up" data-aos-delay="400">
-                                <div class="bg-white p-8 rounded-lg shadow-md text-center">
-                                    <i class="bi bi-inboxes text-4xl mb-4"></i>
-                                    <h4 class="text-lg font-bold mb-2">Labore consequatur incidid dolore</h4>
-                                    <p class="text-gray-700">Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
-                                </div>
-                            </div><!-- End Icon Box -->
-        
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="text-center">
+                <h5 class="section-title ff-secondary text-center text-primary fw-normal">abonnement</h5>
+                <h1 class="mb-5">our plans for you !!!</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel">
+                @foreach($abonnement as $abo)
+                <div class="testimonial-item bg-transparent border rounded p-4">
+                    <h2 class="text-center text-xl font-bold my-4">{{ $abo->type }}</h2>
+                    <div class="d-flex align-items-center">
+                        <div class="ps-3">
+                            <p>{{ __('Number of Articles: :nbr', ['nbr' => $abo->nbr_article]) }}</p>
+                            <h5 class="mb-1">{{ __('Type of Media: :media', ['media' => $abo->type_media]) }}</h5>
+                            <small>{{ __('Number of Scans: :scans', ['scans' => $abo->nbr_scan]) }}</small>
                         </div>
                     </div>
-        
+                    <div class="d-flex justify-content-center">
+                    <div class="mt-3">
+                    @if($user->abonnement_id == null)
+    <form action="{{ route('plan.shows_plan', $abo) }}" method="POST">
+        @csrf
+        <button class="btn btn-success  rounded">Shows Plan</button>
+    </form>
+@endif
+
+@if($user->abonnement_id != $abo->id)
+    <form action="{{ route('plan.shows_plan', $abo) }}" method="POST">
+        @csrf
+        <button class="btn bg-yellow-300 py-2 rounded-full mt-2 me-2">{{ $abo->price }}{{ ($abo->price=='FREE') ? '' : ' DH' }}</button>
+    </form>
+@endif
+
+@if($user->abonnement_id == $abo->id)
+    <h1>You have this plan</h1>
+@endif
+</div></div>
                 </div>
-        
+                @endforeach
+              
+                
             </div>
-        </section>
-        
-        
-    </x-slot>
+        </div>
+    </div>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

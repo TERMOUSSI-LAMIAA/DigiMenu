@@ -44,7 +44,6 @@
                     @endif
                 </div>
                 @endauth
->>>>>>> af14c11e4d3c919e0bc9f916d49deeb9c5c19c52
                 @endif
             </nav>
 
