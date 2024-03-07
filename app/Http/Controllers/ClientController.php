@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\Restaurant;
 use App\Models\Article;
+use App\Models\User;
+use App\Models\Abonnement;
 
 class ClientController extends Controller
 {
@@ -22,13 +24,10 @@ class ClientController extends Controller
     public function getArticles(Menu $menu){
         $articles=Article::where('menu_id',$menu->id)->get();
           $resto=Restaurant::find($menu->restaurant_id);
-       
-        if($resto->nbr_scan > 0 ){
-        $resto->decrement('nbr_scan');
-        return view("client.articles",compact("articles"));
-        }else{
-            return redirect()->route('restMenus',['restaurant' => $resto->id])->with('error','abonnement salat');
-        }
+         return view("client.articles",compact("articles","resto"));
+      
+
+   
        
     }
 }
