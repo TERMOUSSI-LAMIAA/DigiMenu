@@ -1,7 +1,7 @@
 
-<x-welcome-layout>
+<x-app-layout>
 
-<x-slot name="home">
+<x-slot name="slot">
  <!-- Service Start -->
         <div class="container-xxl py-5">
             <div class="container">
@@ -25,4 +25,4 @@
                  
             
     </x-slot>
-</x-welcome-layout>
+</x-app-layout>

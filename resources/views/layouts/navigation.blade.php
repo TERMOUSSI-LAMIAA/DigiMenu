@@ -13,6 +13,9 @@
         
             <div class="navbar-nav ms-auto py-0 pe-4">
                 <a href="{{ route('/') }}" class="nav-item nav-link active">Home</a>
+                @auth
+                    
+               
                 @role('Admin')
                
                 <a class="nav-item nav-link" href="{{ route('dashboard') }}" >
@@ -78,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            
+            @endauth
               
     </nav>
 
@@ -86,12 +89,16 @@
         <div class="container my-5 py-5">
             <div class="row align-items-center g-5">
                 <div class="col-lg-6 text-center text-lg-start">
+                    @auth
+                        
+                    
                     <h1 class="display-3 text-white animated slideInLeft">{{ __('welcome '. Auth::user()->name ) }}</h1>
                     <a href="#" class="nav-link " >{{ Auth::user()->email }}</a>
-
+                    @endauth
                 </div>
                 
             </div>
         </div>
     </div>
+   
 </div>

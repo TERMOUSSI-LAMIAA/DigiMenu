@@ -22,7 +22,7 @@
         </div>
     </x-slot>
 </x-guest-layout> --}}
-<x-guest-layout>
+<x-app-layout>
 
 <x-slot name="slot">
  <!-- Service Start -->
@@ -36,7 +36,7 @@
 @empty
     <div class="col-span-3 text-center">
         <p class="text-gray-500">No articles available.</p>
-        <p class="text-gray-500">Number of Scans: {{ $num_scan }}</p>
+        {{-- <p class="text-gray-500">Number of Scans: {{ $num_scan }}</p> --}}
     </div>
 @endforelse
 
@@ -48,4 +48,4 @@
                  
             
     </x-slot>
-</x-guest-layout>
+</x-app-layout>
