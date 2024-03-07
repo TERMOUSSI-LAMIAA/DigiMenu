@@ -23,7 +23,7 @@
                                 <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                             </div>
                         </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="{{route('client')}}" class="nav-item nav-link">Client</a>
                     </div>
                     
                         @auth
@@ -33,7 +33,7 @@
                         @role('owner')
                         <a href="{{ url('/dashboard_oner') }}" class="fnav-item nav-link">Dashboard</a>
                         @endrole
-                        @role('ownar')
+                        @role('operator')
                         <a href="{{ url('/dashboard_oper') }}" class="fnav-item nav-link">Dashboard</a>
                         @endrole                        @else
                             <a href="{{ route('login') }}" class="nav-item nav-link">Log in</a>

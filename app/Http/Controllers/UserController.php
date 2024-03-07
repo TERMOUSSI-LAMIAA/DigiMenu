@@ -88,7 +88,8 @@ class UserController extends Controller
             'name' =>$request->name, 
             'address' =>$request->address, 
             'opening_hr' =>$request->opening_hr, 
-
+            //** */
+   
         ]);
         $user = User::where('id', Auth::id())
         ->whereHas('roles', function ($query) {
